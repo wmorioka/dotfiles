@@ -1,6 +1,8 @@
 export PROMPT='%n@%m $ '
 export RPROMPT='[%d]'
 
+export LSCOLORS='cxfxcxdxbxegedabagacad'
+
 case "${TERM}" in
 kterm*|xterm)
     precmd() {
@@ -85,13 +87,17 @@ zstyle ':vcs_info:*' formats '[%b]'
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () {
     psvar=()
-    LANG=en_US.UTF-8 vcs_info
+    LANG=ja_JP.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 
 # バージョン管理されているディレクトリにいれば表示，そうでなければ非表示
 #RPROMPT="%1(v|%F{green}%1v%f|)"
 export PROMPT='%n@%m %1(v|%F{green}%1v%f|)$ '
+
+if [[ -f $HOME/src/github.com/wmorioka/dotfiles/.zsh/keybind.zsh ]]; then
+    source $HOME/src/github.com/wmorioka/dotfiles/.zsh/keybind.zsh
+fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
