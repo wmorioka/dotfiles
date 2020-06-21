@@ -11,11 +11,20 @@ kterm*|xterm)
     ;;
 esac
 
+# brew install zsh-completions
+# To activate these completions, add the following to your .zshrc:
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
 # 補完
 # 補完機能を有効にする
-fpath=(/usr/local/share/zsh-completions $fpath)
-autoload -Uz compinit
-compinit
+#fpath=(/usr/local/share/zsh-completions $fpath)
+#autoload -Uz compinit
+#compinit
 
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -98,6 +107,11 @@ export PROMPT='%n@%m %1(v|%F{green}%1v%f|)$ '
 if [[ -f $HOME/src/github.com/wmorioka/dotfiles/.zsh/keybind.zsh ]]; then
     source $HOME/src/github.com/wmorioka/dotfiles/.zsh/keybind.zsh
 fi
+
+# go
+export GOPATH=$HOME
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin
 
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
